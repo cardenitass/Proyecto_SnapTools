@@ -14,5 +14,11 @@ namespace ProyectowebB.Entities
         public decimal Precio { get; set; }
         public string ImagenURL { get; set; }
         public int IdTienda { get; set; }
+
+
+       //Esto es del carrito, tambien el id Producto
+        public int IdUsuario { get; set; }
+
+        public int CantidadProducto { get; set; }
     }
 }

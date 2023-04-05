@@ -8,14 +8,11 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-1">
-
         </div>
         <div class="custom-card col-md-13">
             <div class="card-body">
                 <h4 class="card-title"> Usuarios del Sistema</h4>
-
                 <br />
-
                 <table id="miTabla" class="table table-hover">
                     <thead>
                         <tr>
@@ -33,7 +30,6 @@
                                 <td>@item.CorreoElectronico</td>
                                 <td>@item.Identificacion</td>
                                 <td>@item.Nombre</td>
-
                                 @if (item.Estado)
                                 {
                                     <td>Activo</td>
@@ -42,23 +38,41 @@
                                 {
                                     <td>Inactivo</td>
                                 }
-                            <td>
-                                <a class="btn btn-primary" href="@Url.Action("ActualizarUsuario","Usuario", new {onsubmit = "showSpinner()", q = item.IdUsuario })">Actualizar</a>
-                                <button type="button" class="btn btn-primary openModal" data-toggle="modal" data-target="#exampleModal"
-                                        data-id=@item.IdUsuario data-backdrop="static" data-keyboard="false">
-                                    Cambiar Estado
-                                </button>
+                            <td style="display: flex">
+                                <div class="btn-group" style="margin-right: 10px;">
+                                    <a class="btn btn-primary" href="@Url.Action("ActualizarUsuario","Usuario", new {onsubmit = "showSpinner()", q = item.IdUsuario })">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                                @if (item.Estado)
+                                {
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger openModal" data-toggle="modal" data-target="#exampleModal"
+                                                data-id=@item.IdUsuario data-backdrop="static" data-keyboard="false">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary openModal" data-toggle="modal" data-target="#exampleModal"
+                                                data-id=@item.IdUsuario data-backdrop="static" data-keyboard="false">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                    </div>
+                                }
                             </td>
-
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -87,29 +101,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<script>
-
-    $(document).on("click", ".openModal", function () {
-        var id = $(this).data('id');
-        $("#idModalHidden").val(id);
-    });
-
-    function CambiarEstado() {
-        let id = $("#idModalHidden").val();
-
-        $.ajax({
-            url: "/Usuario/CambiarEstado",
-            type: "POST",
-            data: {
-                "id": id
-            },
-            dataType: 'json',
-            success: function () {
-                window.location.href = "/Usuario/Index";
-            }
-        });
-    }
-
-</script>
+<script src="~/Funciones/CambiarEstado.js"></script>
 

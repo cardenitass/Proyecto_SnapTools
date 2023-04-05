@@ -12,14 +12,15 @@ namespace ProyectoFinal_API.ModeloBD
     using System;
     using System.Collections.Generic;
     
-    public partial class Errors
+    public partial class Cart
     {
-        public long id_error { get; set; }
-        public string description { get; set; }
-        public System.DateTime date_time { get; set; }
-        public string origin { get; set; }
+        public int id_cart { get; set; }
         public int id_user { get; set; }
+        public int id_product { get; set; }
+        public int quantity { get; set; }
+        public System.DateTime date_time { get; set; }
     
+        public virtual Product Product { get; set; }
         public virtual User_tb User_tb { get; set; }
     }
 }

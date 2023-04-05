@@ -120,5 +120,43 @@ namespace ProyectoFinal_API.Models
 
         }
 
+        public void ActualizarCarrito(ProductoEnt entidad)
+        {
+            using (var conexion = new ProyectoFinal_KN_BDEntities())
+            {
+                var datos = (from x in conexion.Cart
+                             where x.id_user == entidad.IdUsuario
+                             && x.id_product == entidad.IdProducto
+                             select x).FirstOrDefault();
+
+                if(datos == null)
+                {
+                    //INSERT
+                    Cart carrito = new Cart();
+                    carrito.id_product= entidad.IdProducto;
+                    carrito.quantity = entidad.CantidadProducto;
+                    carrito.id_user = entidad.IdUsuario; 
+                    carrito.date_time = DateTime.Now;
+                    conexion.Cart.Add(carrito);
+                    conexion.SaveChanges();
+                }
+                else
+                {
+                    if (entidad.CantidadProducto == 0)
+                    {
+                        //DELETE
+                        conexion.Cart.Remove(datos);
+                        conexion.SaveChanges();
+                    }
+                    else
+                    {
+                        //UPDATE
+                        datos.quantity = entidad.CantidadProducto; 
+                        datos.date_time= DateTime.Now;
+                        conexion.SaveChanges();
+                    }
+                }
+            }
+        }
     }
 }

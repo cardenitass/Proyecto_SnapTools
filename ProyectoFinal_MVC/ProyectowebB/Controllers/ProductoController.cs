@@ -11,6 +11,7 @@ using System.Web.Mvc;
 namespace ProyectowebB.Controllers
 {
     [SessionFilter]
+    [RoleFilter]
     public class ProductoController : Controller
     {
         ProductoModel ProductoModel = new ProductoModel();
@@ -119,7 +120,14 @@ namespace ProyectowebB.Controllers
                 LogsModel.RegistrarErrores(Session["IdUsuario"], ControllerContext, ex.Message);
                 return View("Index");
             }
+        }
 
+
+        [HttpPost]
+        public ActionResult ActualizarCarrito(int IdProducto, int CantidadProducto)
+        {
+            ProductoModel.ActualizarCarrito(IdProducto, CantidadProducto);
+            return Json("Ok", JsonRequestBehavior.AllowGet);
         }
     }
 }

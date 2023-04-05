@@ -9,6 +9,16 @@
     <Property Name="date_time" Type="datetime" Nullable="false" />
     <Property Name="origin" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="id_cart" />
+    </Key>
+    <Property Name="id_cart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_product" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Errors">
     <Key>
       <PropertyRef Name="id_error" />
@@ -24,8 +34,10 @@
       <PropertyRef Name="id_invoice" />
     </Key>
     <Property Name="id_invoice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+    <Property Name="sub_total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="tax" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="date" Type="datetime" Nullable="false" />
     <Property Name="id_user" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Invoice_details">
@@ -33,10 +45,10 @@
       <PropertyRef Name="id_invoice_detail" />
     </Key>
     <Property Name="id_invoice_detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_product" Type="int" Nullable="false" />
-    <Property Name="quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="id_invoice" Type="int" Nullable="false" />
+    <Property Name="id_product" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -85,7 +97,43 @@
     <Property Name="identification" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="id_province" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="fk_invoice">
+  <Association Name="fk_cart_product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id_product" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cart_user">
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_tb">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_errors_user">
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
+    <End Role="Errors" Type="Self.Errors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_tb">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Errors">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_invoice_details_invoice">
     <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
     <End Role="Invoice_details" Type="Self.Invoice_details" Multiplicity="*" />
     <ReferentialConstraint>
@@ -97,7 +145,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_product">
+  <Association Name="fk_invoice_details_product">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="Invoice_details" Type="Self.Invoice_details" Multiplicity="*" />
     <ReferentialConstraint>
@@ -109,19 +157,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_store">
-    <End Role="Store" Type="Self.Store" Multiplicity="1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Store">
-        <PropertyRef Name="id_store" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="id_store" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_user">
+  <Association Name="fk_invoice_user">
     <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
     <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -130,6 +166,18 @@
       </Principal>
       <Dependent Role="Invoice">
         <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_product_store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="id_store" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="id_store" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -157,20 +205,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_user2">
-    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
-    <End Role="Errors" Type="Self.Errors" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User_tb">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="Errors">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="ProyectoFinal_KN_BDModelStoreContainer">
     <EntitySet Name="Binnacle" EntityType="Self.Binnacle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Errors" EntityType="Self.Errors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice_details" EntityType="Self.Invoice_details" Schema="dbo" store:Type="Tables" />
@@ -179,21 +216,33 @@
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_tb" EntityType="Self.User_tb" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="fk_invoice" Association="Self.fk_invoice">
+    <AssociationSet Name="fk_cart_product" Association="Self.fk_cart_product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cart_user" Association="Self.fk_cart_user">
+      <End Role="User_tb" EntitySet="User_tb" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="fk_errors_user" Association="Self.fk_errors_user">
+      <End Role="User_tb" EntitySet="User_tb" />
+      <End Role="Errors" EntitySet="Errors" />
+    </AssociationSet>
+    <AssociationSet Name="fk_invoice_details_invoice" Association="Self.fk_invoice_details_invoice">
       <End Role="Invoice" EntitySet="Invoice" />
       <End Role="Invoice_details" EntitySet="Invoice_details" />
     </AssociationSet>
-    <AssociationSet Name="fk_product" Association="Self.fk_product">
+    <AssociationSet Name="fk_invoice_details_product" Association="Self.fk_invoice_details_product">
       <End Role="Product" EntitySet="Product" />
       <End Role="Invoice_details" EntitySet="Invoice_details" />
     </AssociationSet>
-    <AssociationSet Name="fk_store" Association="Self.fk_store">
-      <End Role="Store" EntitySet="Store" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="fk_user" Association="Self.fk_user">
+    <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
       <End Role="User_tb" EntitySet="User_tb" />
       <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="fk_product_store" Association="Self.fk_product_store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="fk_user_province" Association="Self.fk_user_province">
       <End Role="Province" EntitySet="Province" />
@@ -202,10 +251,6 @@
     <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
       <End Role="Role" EntitySet="Role" />
       <End Role="User_tb" EntitySet="User_tb" />
-    </AssociationSet>
-    <AssociationSet Name="fk_user2" Association="Self.fk_user2">
-      <End Role="User_tb" EntitySet="User_tb" />
-      <End Role="Errors" EntitySet="Errors" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

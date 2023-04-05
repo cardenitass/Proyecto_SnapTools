@@ -91,5 +91,23 @@ namespace ProyectowebB.Models
 
             }
         }
+
+        public void ActualizarCarrito(int IdProducto, int CantidadProducto)
+        {
+            using (var client = new HttpClient())
+            {
+                ProductoEnt entidad = new ProductoEnt();
+                entidad.IdProducto = IdProducto;    
+                entidad.CantidadProducto = CantidadProducto;
+                entidad.IdUsuario = int.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                // Serializar
+                JsonContent body = JsonContent.Create(entidad);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Current.Session["TokenUsuario"].ToString());
+                string url = "https://localhost:44345/api/ActualizarCarrito";
+
+                client.PutAsync(url, body).GetAwaiter().GetResult();
+
+            }
+        }
     }
 }

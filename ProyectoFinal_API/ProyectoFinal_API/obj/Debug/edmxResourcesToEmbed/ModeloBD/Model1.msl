@@ -11,6 +11,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Cart">
+      <EntityTypeMapping TypeName="ProyectoFinal_KN_BDModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="id_cart" ColumnName="id_cart" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Errors">
       <EntityTypeMapping TypeName="ProyectoFinal_KN_BDModel.Errors">
         <MappingFragment StoreEntitySet="Errors">
@@ -26,8 +37,10 @@
       <EntityTypeMapping TypeName="ProyectoFinal_KN_BDModel.Invoice">
         <MappingFragment StoreEntitySet="Invoice">
           <ScalarProperty Name="id_invoice" ColumnName="id_invoice" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="sub_total" ColumnName="sub_total" />
+          <ScalarProperty Name="tax" ColumnName="tax" />
           <ScalarProperty Name="total" ColumnName="total" />
-          <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="id_user" ColumnName="id_user" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -36,10 +49,10 @@
       <EntityTypeMapping TypeName="ProyectoFinal_KN_BDModel.Invoice_details">
         <MappingFragment StoreEntitySet="Invoice_details">
           <ScalarProperty Name="id_invoice_detail" ColumnName="id_invoice_detail" />
+          <ScalarProperty Name="id_invoice" ColumnName="id_invoice" />
           <ScalarProperty Name="id_product" ColumnName="id_product" />
           <ScalarProperty Name="quantity" ColumnName="quantity" />
           <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="id_invoice" ColumnName="id_invoice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

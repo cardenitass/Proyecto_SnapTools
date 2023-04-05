@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace ProyectowebB.Controllers
 {
     [SessionFilter]
+    [RoleFilter]
     public class UsuarioController : Controller
     {
         LogsModel LogsModel = new LogsModel();

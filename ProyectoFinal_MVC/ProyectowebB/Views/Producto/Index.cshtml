@@ -50,36 +50,38 @@
                                 {
                                     <td>H</td>
                                 }
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-primary mr-2 rounded" href="@Url.Action("ActualizarProducto","Producto", new { q = item.IdProducto })">Actualizar</a>
-                                        <button type="button" class="btn btn-primary rounded" data-toggle="modal" data-target="#eliminarModal-@item.IdProducto">Eliminar</button>
-                                    </div>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary mr-2 rounded" href="@Url.Action("ActualizarProducto","Producto", new { q = item.IdProducto })"><i class="fas fa-edit"></i></a>
+                                    <button type="button" class="btn btn-danger rounded" data-toggle="modal" data-target="#eliminarModal-@item.IdProducto">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
 
-                                    <!-- Modal de confirmación de eliminación -->
-                                    <div class="modal fade" id="eliminarModal-@item.IdProducto" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Producto</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿Está seguro que desea eliminar el producto @item.Nombre?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form method="post" action="@Url.Action("EliminarProducto", "Producto")">
-                                                        @Html.AntiForgeryToken()
-                                                        <input type="hidden" name="id" value="@item.IdProducto" />
-                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                    </form>
-                                                </div>
+                                <!-- Modal de confirmación de eliminación -->
+                                <div class="modal fade" id="eliminarModal-@item.IdProducto" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="eliminarModalLabel">Eliminar Producto</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Está seguro que desea eliminar el producto @item.Nombre?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="post" action="@Url.Action("EliminarProducto", "Producto")">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.IdProducto" />
+                                                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
                             </tr>
                         }
                     </tbody>

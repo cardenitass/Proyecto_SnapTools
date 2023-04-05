@@ -15,6 +15,7 @@ namespace ProyectowebB.Controllers
         LogsModel LogsModel = new LogsModel();
         UsuarioModel UsuarioModel = new UsuarioModel();
         ProvinciaModel ProvinciaModel = new ProvinciaModel();
+        ProductoModel ProductoModel = new ProductoModel();
 
         [HttpGet]
         public ActionResult Index()
@@ -43,6 +44,7 @@ namespace ProyectowebB.Controllers
                     Session["IdUsuario"] = resultado.IdUsuario;
                     Session["CorreoUsuario"] = resultado.CorreoElectronico;
                     Session["TokenUsuario"] = resultado.Token;
+                    Session["Rol"] = resultado.Rol;
                     return RedirectToAction("PantallaPrincipal","Home");  
                 }
                 else{
@@ -115,7 +117,8 @@ namespace ProyectowebB.Controllers
         {
             try
             {
-                return View("Principal");
+                var datos = ProductoModel.ConsultarProductos();
+                return View("Principal", datos);
 
             }
             catch (Exception ex)

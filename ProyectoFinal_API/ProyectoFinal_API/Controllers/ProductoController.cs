@@ -54,5 +54,12 @@ namespace ProyectoFinal_API.Controllers
             ProductoModel.EliminarProducto(id);
         }
 
+        [HttpPut]
+        [Route("api/ActualizarCarrito")]
+        public void ActualizarCarrito(ProductoEnt entidad)
+        {
+            ProductoModel.ActualizarCarrito(entidad);
+        }
+
     }
 }

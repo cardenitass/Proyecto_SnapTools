@@ -38,6 +38,15 @@ CREATE TABLE User_tb(
 	id_province int NOT NULL,
 );
 
+
+CREATE TABLE Cart(
+	id_cart int IDENTITY (1,1) NOT NULL CONSTRAINT pk_cart PRIMARY KEY,
+	id_user int NOT NULL,
+	id_product int NOT NULL,
+	quantity int NOT NULL, 
+	date_time datetime NOT NULL,
+);
+
 CREATE TABLE Role(
 	id_role int IDENTITY (1,1) NOT NULL CONSTRAINT pk_Role PRIMARY KEY,
 	role_name varchar(40) NOT NULL,
@@ -50,18 +59,20 @@ CREATE TABLE Province(
 
 CREATE TABLE Invoice(
 	id_invoice int IDENTITY (1,1) NOT NULL CONSTRAINT pk_invoice PRIMARY KEY,
+    date_time datetime NOT NULL,
+	sub_total decimal NOT NULL,
+	tax decimal NOT NULL, 
 	total decimal NOT NULL,
-	date DATETIME NOT NULL,
 	id_user int NOT NULL,
 );
 
 
 CREATE TABLE  Invoice_details (
 	id_invoice_detail int IDENTITY (1,1) NOT NULL CONSTRAINT pk_invoice_details PRIMARY KEY,
-	id_product int NOT NULL,
-	quantity decimal NOT NULL,
-	price decimal NOT NULL,
 	id_invoice int NOT NULL,
+	id_product int NOT NULL,
+	quantity int NOT NULL,
+	price decimal NOT NULL,
 );
 
 CREATE TABLE  Binnacle (
@@ -80,10 +91,10 @@ CREATE TABLE  Errors (
 );
 
 
-ALTER TABLE Product ADD CONSTRAINT fk_store FOREIGN KEY (id_store)
+ALTER TABLE Product ADD CONSTRAINT fk_product_store FOREIGN KEY (id_store)
 REFERENCES store (id_store);
 
-ALTER TABLE Invoice  ADD CONSTRAINT fk_user FOREIGN KEY (id_user) 
+ALTER TABLE Invoice  ADD CONSTRAINT fk_invoice_user FOREIGN KEY (id_user) 
 REFERENCES User_tb(id_user);
 
 ALTER TABLE User_tb ADD CONSTRAINT fk_user_province FOREIGN KEY (id_province) 
@@ -92,13 +103,19 @@ REFERENCES Province(id_province);
 ALTER TABLE User_tb ADD CONSTRAINT fk_user_role FOREIGN KEY (id_role) 
 REFERENCES Role(id_role)
 
-ALTER TABLE Invoice_details  ADD CONSTRAINT fk_product FOREIGN KEY (id_product) 
+ALTER TABLE Cart ADD CONSTRAINT fk_cart_user FOREIGN KEY (id_user) 
+REFERENCES User_tb(id_user)
+
+ALTER TABLE Cart ADD CONSTRAINT fk_cart_product FOREIGN KEY (id_product) 
+REFERENCES Product(id_product)
+
+ALTER TABLE Invoice_details  ADD CONSTRAINT fk_invoice_details_product FOREIGN KEY (id_product) 
 REFERENCES Product(id_product);
 
-ALTER TABLE Invoice_details  ADD CONSTRAINT fk_invoice FOREIGN KEY (id_invoice)
+ALTER TABLE Invoice_details  ADD CONSTRAINT fk_invoice_details_invoice FOREIGN KEY (id_invoice)
 REFERENCES Invoice(id_invoice);
 
-ALTER TABLE Errors  ADD CONSTRAINT fk_user2 FOREIGN KEY (id_user)
+ALTER TABLE Errors  ADD CONSTRAINT fk_errors_user FOREIGN KEY (id_user)
 REFERENCES User_tb(id_user);
 
 
@@ -209,7 +226,7 @@ INSERT INTO [dbo].[Product]
            ,[id_store])
      VALUES
            ('Truper MA-16F','Martillo pulido, uña curva 16 oz y mango de fibra de vidrio','5',
-		    '7000.00','https://m.media-amazon.com/images/I/61hhOHoEaCL._AC_SL1500_.jpg','1')
+		    '7000.00','\img\Martillo.jpg','1')
 
 INSERT INTO [dbo].[Product]
            ([name]
@@ -219,12 +236,20 @@ INSERT INTO [dbo].[Product]
            ,[picture_url]
            ,[id_store])
      VALUES
-           ('KOHAM','Tijeras de podar eléctricas profesionales inalámbricas con 2 piezas de respaldo recargables','10',
-		    '40000.00','https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71cbIrZGxOL._AC_UF894,1000_QL80_.jpg','2')
+           ('KOHAM','Tijera de podar eléctrica profesionale inalámbrica con 2 piezas de respaldo recargables','10',
+		    '40000.00','\img\Tijera.jpg','2')
 
 --SELECTS----------------------------------------------------------------------------------------------------------------------------
 
 Select * from User_tb;
+
+Select * from Product;
+
+Select * from Cart; 
+
+Select * from Invoice;
+
+Select * from Invoice_details;
 
 Select * from Province; 
 
@@ -232,10 +257,15 @@ Select * from Role;
 
 Select * from Store;
 
-Select * from Product;
 
 --DELETS----------------------------------------------------------------------------------------------------------------------------
 
 DELETE FROM [dbo].[User_tb] 
 
 DELETE FROM [dbo].[Role] 
+
+DELETE FROM [dbo].[Product] 
+
+DELETE FROM [dbo].[Cart] 
+
+

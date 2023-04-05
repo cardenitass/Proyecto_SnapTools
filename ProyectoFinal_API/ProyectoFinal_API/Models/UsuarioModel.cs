@@ -29,7 +29,8 @@ namespace ProyectoFinal_API.Models
                     entidadResultado.Token = tokenGenerator.GenerateTokenJwt(resultado.email);
                     entidadResultado.IdUsuario = resultado.id_user;
                     entidadResultado.CorreoElectronico = resultado.email;
-                    entidadResultado.Estado = resultado.active; 
+                    entidadResultado.Estado = resultado.active;
+                    entidadResultado.Rol = resultado.id_role; 
                     return entidadResultado;
                 }
 
@@ -117,7 +118,7 @@ namespace ProyectoFinal_API.Models
                              select x).FirstOrDefault();
 
                 // Condicion ternaria
-                datos.active = (datos.active = true ? false : true );
+                datos.active = (datos.active == true ? false : true );
                 conexion.SaveChanges();
 
             }
