@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ProyectowebB.Entities.ProductoEnt>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="custom-card col-md-13">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Productos Registrados</h4>
+                    <a class="btn btn-success rounded" href="@Url.Action("AgregarProducto","Producto")">
+                        Nuevo <i class="fa fa-plus-circle"></i>
+                    </a>
+                </div>
+
+                <br />
+
+                <table id="miTabla" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Tienda</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IdProducto</td>
+                                <td>@item.Nombre</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.Stock</td>
+                                <td>₡@item.Precio</td>
+
+                                @if (item.IdTienda == 1)
+                                {
+                                    <td>SJ</td>
+                                }
+                                else
+                                {
+                                    <td>H</td>
+                                }
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary mr-2 rounded" href="@Url.Action("ActualizarProducto","Producto", new { q = item.IdProducto })">Actualizar</a>
+                                        <button type="button" class="btn btn-primary rounded" data-toggle="modal" data-target="#eliminarModal-@item.IdProducto">Eliminar</button>
+                                    </div>
+
+                                    <!-- Modal de confirmación de eliminación -->
+                                    <div class="modal fade" id="eliminarModal-@item.IdProducto" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="eliminarModalLabel">Eliminar Producto</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>¿Está seguro que desea eliminar el producto @item.Nombre?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form method="post" action="@Url.Action("EliminarProducto", "Producto")">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@item.IdProducto" />
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

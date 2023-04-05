@@ -1,0 +1,63 @@
+﻿@model ProyectowebB.Entities.ProductoEnt
+
+@{
+    ViewBag.Title = "AgregarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="custom-card p-4">
+        <h3 class="mb-4">Agregar Producto</h3>
+
+        <br />
+
+        @using (Html.BeginForm("AgregarProducto", "Producto", FormMethod.Post, new { onsubmit = "showSpinner()" }))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        @Html.TextBoxFor(m => m.Nombre, new { @type = "text", @class = "form-control", @required = true, @maxlength = 40 })
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        @Html.TextAreaFor(m => m.Descripcion, new
+                        {
+                            @type = "text",
+                            @class = "form-control",
+                            @required = true,
+                            @maxlength = 100
+                        })
+                    </div>
+                    <div class="form-group">
+                        <label>Stock</label>
+                        @Html.TextBoxFor(m => m.Stock, new { @type = "number", min = "1", max = "999", @class = "form-control", @required = true })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Precio</label>
+                        @Html.TextBoxFor(m => m.Precio, new { @type = "text", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group">
+                        <label>Url Imagen</label>
+                        @Html.TextBoxFor(m => m.ImagenURL, new { @type = "url", @class = "form-control", @required = true })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="rol">Tienda</label>
+                        @Html.DropDownListFor(m => m.IdTienda, ViewBag.ListaTiendas as List<SelectListItem>,
+                        new { @type = "text", @class = "form-control", })
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <input type="submit" class="btn btn-primary" value="Agregar">
+        }
+    </div>
+</div>
+
+
