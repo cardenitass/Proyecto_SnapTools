@@ -10,12 +10,14 @@ using System.Web.UI.WebControls;
 
 namespace ProyectowebB.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0)]
     public class HomeController : Controller
     {
         LogsModel LogsModel = new LogsModel();
         UsuarioModel UsuarioModel = new UsuarioModel();
         ProvinciaModel ProvinciaModel = new ProvinciaModel();
         ProductoModel ProductoModel = new ProductoModel();
+
 
         [HttpGet]
         public ActionResult Index()

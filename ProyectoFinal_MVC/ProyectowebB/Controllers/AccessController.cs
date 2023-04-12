@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace ProyectowebB.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0)]
     public class AccessController : Controller
     {
-       
+
         RecoveryModel RecoveryModel = new RecoveryModel();
 
         [HttpGet]

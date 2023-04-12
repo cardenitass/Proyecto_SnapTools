@@ -12,6 +12,7 @@ namespace ProyectowebB.Controllers
 {
     [SessionFilter]
     [RoleFilter]
+    [OutputCache(NoStore = true, Duration = 0)]
     public class ProductoController : Controller
     {
         ProductoModel ProductoModel = new ProductoModel();
