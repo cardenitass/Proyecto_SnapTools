@@ -62,12 +62,23 @@
 
                                 @if (Session["Rol"] != null && Session["Rol"].ToString() == "1")
                                 {
-                                <li><a class="nav-link" href="@Url.Action("Index", "Usuario")">Mant. Usuarios</a></li>
-                                <li><a class="nav-link" href="@Url.Action("Index", "Producto")">Mant. Productos</a></li>
-                                }
-                            </ul>
+                                    
+                                    <li><a class="nav-link" href="#">Mantenimiento</a> 
+                                     <ul>
+                                         <li>
+                                             <a class="nav-link" href="@Url.Action("Index", "Usuario")">Mant. Usuarios</a>
+                                         </li>
+                                         <li>
+                                             <a class="nav-link" href="@Url.Action("Index", "Producto")">Mant. Productos</a>
+                                         </li>
+                                     </ul>
+                                </li>
+                        }
+                               
 
-                        </div>
+                                </ul>
+
+                            </div>
                     </div>
                 </nav>
             </div>
@@ -87,8 +98,11 @@
                                 <a href="#">Politica de Privacidad</a>
                                 &middot;
                                 <a href="#">Terms &amp; Condiciones </a>
+
                             </div>
                         </div>
+
+     
                     </div>
                 </footer>
 
