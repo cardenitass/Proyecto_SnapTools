@@ -38,12 +38,12 @@ function ActualizarCarrito(IdProducto, Stock) {
                     icon: 'success',
                     title: 'Producto actualizado en el carrito!',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1900
                 })
 
                 setTimeout(function () {
                     window.location.href = "/Home/PantallaPrincipal";
-                }, 2200);
+                }, 2000);
 
             }
         });
