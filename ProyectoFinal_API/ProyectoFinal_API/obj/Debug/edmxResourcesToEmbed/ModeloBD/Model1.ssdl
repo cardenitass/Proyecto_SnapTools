@@ -205,6 +205,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="ShowTemporalCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ShowTotalCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="ProyectoFinal_KN_BDModelStoreContainer">
     <EntitySet Name="Binnacle" EntityType="Self.Binnacle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />

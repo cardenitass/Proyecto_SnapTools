@@ -108,5 +108,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ShowTemporalCart" FunctionName="ProyectoFinal_KN_BDModel.Store.ShowTemporalCart">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ProyectoFinal_KN_BDModel.ShowTemporalCart_Result">
+          <ScalarProperty Name="CartQuantity" ColumnName="CartQuantity" />
+          <ScalarProperty Name="CartPrice" ColumnName="CartPrice" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ShowTotalCart" FunctionName="ProyectoFinal_KN_BDModel.Store.ShowTotalCart">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ProyectoFinal_KN_BDModel.ShowTotalCart_Result">
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="CartQuantity" ColumnName="CartQuantity" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

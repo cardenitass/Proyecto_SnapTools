@@ -109,5 +109,40 @@ namespace ProyectowebB.Models
 
             }
         }
+
+        public CarritoEnt MostrarCarritoTemporal()
+        {
+            using (var client = new HttpClient())
+            {
+                int IdUsuario = int.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = "https://localhost:44345/api/MostrarCarritoTemporal?IdUsuario=" + IdUsuario;
+              
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Current.Session["TokenUsuario"].ToString());
+                HttpResponseMessage res = client.GetAsync(url).GetAwaiter().GetResult();
+
+                if (res.IsSuccessStatusCode)
+                    return res.Content.ReadFromJsonAsync<CarritoEnt>().Result;
+            
+                return null;
+            }
+        }
+
+        public List<CarritoDetalleEnt> MostrarCarritoTotal()
+        {
+            using (var client = new HttpClient())
+            {
+                int IdUsuario = int.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = "https://localhost:44345/api/MostrarCarritoTotal?IdUsuario=" + IdUsuario;
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Current.Session["TokenUsuario"].ToString());
+                HttpResponseMessage res = client.GetAsync(url).GetAwaiter().GetResult();
+
+                if (res.IsSuccessStatusCode)
+                    return res.Content.ReadFromJsonAsync<List<CarritoDetalleEnt>>().Result;
+
+                // Una lista no puede retornar null
+                return new List<CarritoDetalleEnt>();
+            }
+        }
     }
 }

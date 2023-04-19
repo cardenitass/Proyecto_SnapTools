@@ -18,7 +18,7 @@ function ActualizarCarrito(IdProducto, Stock) {
             icon: 'warning',
             title: 'Excede la cantidad de productos disponibles',
             showConfirmButton: false,
-            timer: 2500
+            timer: 2000
         })
     }
     else {
@@ -38,12 +38,12 @@ function ActualizarCarrito(IdProducto, Stock) {
                     icon: 'success',
                     title: 'Producto actualizado en el carrito!',
                     showConfirmButton: false,
-                    timer: 2500
+                    timer: 2000
                 })
 
                 setTimeout(function () {
                     window.location.href = "/Home/PantallaPrincipal";
-                }, 2700);
+                }, 2200);
 
             }
         });

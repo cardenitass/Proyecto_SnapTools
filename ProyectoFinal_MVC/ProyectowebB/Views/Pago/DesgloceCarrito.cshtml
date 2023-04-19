@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProyectowebB.Entities.CarritoDetalleEnt>
+@{
+    ViewBag.Title = "DesgloceCarrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="custom-card col-md-13">
+            <div class="card-body">
+                <h4 class="card-title">Desgloce del carrito</h4>
+                <br />
+                <table id="miTabla" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unidad</th>
+                            <th>SubTotal</th>
+                            <th>Impuesto (IVA)</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.NombreProducto</td>
+                                <td>@item.CantidadCarrito</td>
+                                <td>₡@string.Format("{0:n2}", @item.PrecioProducto)</td>
+                                <td>₡@string.Format("{0:n2}", @item.SubTotal)</td>
+                                <td>₡@string.Format("{0:n2}", @item.Impuesto)</td>
+                                <td>₡@string.Format("{0:n2}", @item.Total)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

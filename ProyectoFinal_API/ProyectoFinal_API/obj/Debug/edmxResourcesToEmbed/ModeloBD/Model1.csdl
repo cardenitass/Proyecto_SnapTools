@@ -270,5 +270,23 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="User_tb" EntitySet="User_tb" />
     </AssociationSet>
+    <FunctionImport Name="ShowTemporalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTemporalCart_Result)">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ShowTotalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTotalCart_Result)">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="ShowTemporalCart_Result">
+    <Property Type="Int32" Name="CartQuantity" Nullable="true" />
+    <Property Type="Decimal" Name="CartPrice" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ShowTotalCart_Result">
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="73" />
+    <Property Type="Int32" Name="CartQuantity" Nullable="false" />
+    <Property Type="Decimal" Name="ProductPrice" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="29" Scale="0" />
+    <Property Type="Decimal" Name="Tax" Nullable="true" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
 </Schema>

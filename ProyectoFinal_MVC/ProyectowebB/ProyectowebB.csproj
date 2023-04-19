@@ -161,8 +161,11 @@
     <Compile Include="App_Start\SessionFilter.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Entities\CarritoDetalleEnt.cs" />
+    <Compile Include="Entities\CarritoEnt.cs" />
     <Compile Include="Entities\LogsEnt.cs" />
     <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ProvinciaEnt.cs" />
@@ -241,6 +244,7 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\ActualizarProducto.cshtml" />
     <Content Include="Views\Producto\AgregarProducto.cshtml" />
+    <Content Include="Views\Pago\DesgloceCarrito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

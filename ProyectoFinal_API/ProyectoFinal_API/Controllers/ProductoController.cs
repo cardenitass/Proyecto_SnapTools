@@ -61,5 +61,19 @@ namespace ProyectoFinal_API.Controllers
             ProductoModel.ActualizarCarrito(entidad);
         }
 
+        [HttpGet]
+        [Route("api/MostrarCarritoTemporal")]
+        public CarritoEnt MostrarCarritoTemporal(int IdUsuario)
+        {
+            return ProductoModel.MostrarCarritoTemporal(IdUsuario);
+        }
+
+        [HttpGet]
+        [Route("api/MostrarCarritoTotal")]
+        public List<CarritoDetalleEnt> MostrarCarritoTotal(int IdUsuario)
+        {
+            return ProductoModel.MostrarCarritoTotal(IdUsuario);
+        }
+
     }
 }

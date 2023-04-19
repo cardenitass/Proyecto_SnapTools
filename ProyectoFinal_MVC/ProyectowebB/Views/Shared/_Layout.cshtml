@@ -35,6 +35,7 @@
             <a class="navbar-brand ps-3" href="@Url.Action("PantallaPrincipal","Home")">Ferretería Snap Tools</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+
             <!-- Navbar User-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 @if (Session["CorreoUsuario"] != null)
@@ -44,10 +45,22 @@
             </form>
 
             <!-- Navbar-->
+            <div class="cart-icon">
+                <a href="@Url.Action("DesgloceCarrito", "Pago")" target="_self"><i class="fa-solid fa-cart-shopping" style="color: #dbcb1f;"></i></a>
+                <span class="cart-quantity">@Session["CantidadCarritoTemporal"].ToString()</span>
+            </div>
+
+            &nbsp;&nbsp;
+            <h7 class="text-white bg-dark">₡@string.Format("{0:n2}", decimal.Parse(@Session["PrecioCarritoTemporal"].ToString()))</h7>
+            &nbsp;&nbsp;
+            &nbsp;
+
             <form class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="nav-link" id="navbarDropdown" href="@Url.Action("CerrarSesion","Home")" role="button"><i class="fa fa-sign-out"></i></a>
             </form>
         </nav>
+
+
 
 
         <div id="layoutSidenav">
@@ -62,23 +75,36 @@
 
                                 @if (Session["Rol"] != null && Session["Rol"].ToString() == "1")
                                 {
-                                    
-                                    <li><a class="nav-link" href="#">Mantenimiento</a> 
-                                     <ul>
-                                         <li>
-                                             <a class="nav-link" href="@Url.Action("Index", "Usuario")">Mant. Usuarios</a>
-                                         </li>
-                                         <li>
-                                             <a class="nav-link" href="@Url.Action("Index", "Producto")">Mant. Productos</a>
-                                         </li>
-                                     </ul>
+
+                                    <li>
+                                        <a class="nav-link" href="#">Mantenimiento</a>
+                                        <ul>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Usuario")">Usuarios</a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="@Url.Action("Index", "Producto")">Productos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+
+                                <!--CART-->
+                                <li>
+                                    <a class="nav-link" href="#">Carrito</a>
+                                    <ul>
+                                        <li>
+                                            <a class="nav-link" href="@Url.Action("DesgloceCarrito", "Pago")">Procesar Pago</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="@Url.Action("", "")">Ver facturas</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                        }
-                               
 
-                                </ul>
+                            </ul>
 
-                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -102,7 +128,7 @@
                             </div>
                         </div>
 
-     
+
                     </div>
                 </footer>
 
@@ -142,7 +168,7 @@
                         $('#miTabla').DataTable(opciones);
                     });
                 </script>
-</body>
+    </body>
 </html>
 
 <script>

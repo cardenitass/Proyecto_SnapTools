@@ -158,5 +158,52 @@ namespace ProyectoFinal_API.Models
                 }
             }
         }
+
+       public CarritoEnt MostrarCarritoTemporal(int IdUsuario)
+        {
+            using (var conexion = new ProyectoFinal_KN_BDEntities())
+            {
+                // Store Procedure
+                var datos = conexion.ShowTemporalCart(IdUsuario).FirstOrDefault();
+
+                CarritoEnt carrito = new CarritoEnt();
+
+              if(datos != null)
+                {
+                    carrito.CantidadCarrito = datos.CartQuantity;
+                    carrito.PrecioCarrito = datos.CartPrice; 
+                }
+              return carrito;
+            }
+        }
+
+        public List<CarritoDetalleEnt> MostrarCarritoTotal(int IdUsuario)
+        {
+            using (var conexion = new ProyectoFinal_KN_BDEntities())
+            {
+                // Store Procedure
+                var datos = conexion.ShowTotalCart(IdUsuario).ToList();
+
+                List<CarritoDetalleEnt> carrito = new List<CarritoDetalleEnt>();
+
+                if (datos.Count > 0)
+                {
+                    foreach (var item in datos)
+                    {
+                        carrito.Add(new CarritoDetalleEnt
+                        {
+                            NombreProducto = item.ProductName,
+                            CantidadCarrito = item.CartQuantity,
+                            PrecioProducto = item.ProductPrice,
+                            SubTotal = item.SubTotal,
+                            Impuesto = item.Tax,
+                            Total = item.Total
+                        });
+                    }
+
+                }
+                return carrito;
+            }
+        }
     }
 }

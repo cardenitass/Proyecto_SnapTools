@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProyectoFinal_KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProyectoFinal_KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Binnacle">
           <Key>
             <PropertyRef Name="id_error" />
@@ -210,6 +210,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ShowTemporalCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ShowTotalCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ProyectoFinal_KN_BDModelStoreContainer">
           <EntitySet Name="Binnacle" EntityType="Self.Binnacle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
@@ -258,8 +264,7 @@
             <End Role="User_tb" EntitySet="User_tb" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProyectoFinal_KN_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -533,7 +538,25 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User_tb" EntitySet="User_tb" />
           </AssociationSet>
+          <FunctionImport Name="ShowTemporalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTemporalCart_Result)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ShowTotalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTotalCart_Result)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ShowTemporalCart_Result">
+          <Property Type="Int32" Name="CartQuantity" Nullable="true" />
+          <Property Type="Decimal" Name="CartPrice" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ShowTotalCart_Result">
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="73" />
+          <Property Type="Int32" Name="CartQuantity" Nullable="false" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="29" Scale="0" />
+          <Property Type="Decimal" Name="Tax" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -647,6 +670,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ShowTemporalCart" FunctionName="ProyectoFinal_KN_BDModel.Store.ShowTemporalCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoFinal_KN_BDModel.ShowTemporalCart_Result">
+                <ScalarProperty Name="CartQuantity" ColumnName="CartQuantity" />
+                <ScalarProperty Name="CartPrice" ColumnName="CartPrice" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowTotalCart" FunctionName="ProyectoFinal_KN_BDModel.Store.ShowTotalCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoFinal_KN_BDModel.ShowTotalCart_Result">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CartQuantity" ColumnName="CartQuantity" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

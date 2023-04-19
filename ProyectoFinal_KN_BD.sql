@@ -15,6 +15,7 @@ CREATE TABLE Store (
 );
 
 
+
 CREATE TABLE Product(
 	id_product int IDENTITY (1,1) NOT NULL CONSTRAINT pk_product PRIMARY KEY,
 	name varchar(40) NOT NULL,
@@ -91,6 +92,7 @@ CREATE TABLE  Errors (
 );
 
 
+
 ALTER TABLE Product ADD CONSTRAINT fk_product_store FOREIGN KEY (id_store)
 REFERENCES store (id_store);
 
@@ -117,7 +119,43 @@ REFERENCES Invoice(id_invoice);
 
 ALTER TABLE Errors  ADD CONSTRAINT fk_errors_user FOREIGN KEY (id_user)
 REFERENCES User_tb(id_user);
+GO
 
+--STORE PROCEDURES----------------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE ShowTemporalCart
+    @IdUsuario int
+AS
+BEGIN 
+  DECLARE @IVA DECIMAL = 0.13
+
+    SELECT ISNULL(SUM(C.quantity),0)                                               CartQuantity,
+		   ISNULL(SUM(C.quantity * P.price) + (SUM(C.quantity * P.price)* @IVA),0) CartPrice
+	FROM Cart C INNER JOIN Product P 
+	     ON C.id_product = P.id_product
+	WHERE id_user = @IdUsuario
+END
+GO
+
+-----------------------------------
+
+CREATE PROCEDURE ShowTotalCart
+    @IdUsuario int
+AS
+BEGIN 
+ DECLARE @IVA DECIMAL(10,2) = 0.13
+
+    SELECT CONVERT(VARCHAR,P.id_product) +'-> '+ P.name             ProductName,
+	       C.quantity                                               CartQuantity,
+	       P.price                                                  ProductPrice,
+		   C.quantity * P.price                                     SubTotal,
+		   (C.quantity * P.price) * @IVA                            Tax,		                                                           
+		   C.quantity * P.price + ((C.quantity * P.price) * @IVA)   Total
+	FROM Cart C INNER JOIN Product P 
+	     ON C.id_product = P.id_product
+	WHERE id_user = @IdUsuario
+END
+GO
 
 
 --INSERTS PROVINCIAS----------------------------------------------------------------------------------------------------------------------------
@@ -269,3 +307,7 @@ DELETE FROM [dbo].[Product]
 DELETE FROM [dbo].[Cart] 
 
 
+--Eliminar los productos del carrito despues de 5 dias-----------------------------------------------------------------------------
+
+DELETE FROM Cart
+WHERE date_time > GETDATE() + 5

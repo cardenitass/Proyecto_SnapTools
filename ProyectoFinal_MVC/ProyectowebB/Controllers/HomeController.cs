@@ -63,6 +63,29 @@ namespace ProyectowebB.Controllers
         
         }
 
+        [HttpGet]
+        [SessionFilter]
+        public ActionResult PantallaPrincipal()
+        {
+            try
+            {
+                var datos = ProductoModel.ConsultarProductos();
+
+                var datosCarritoTemporal = ProductoModel.MostrarCarritoTemporal();
+                Session["CantidadCarritoTemporal"] = datosCarritoTemporal.CantidadCarrito;
+                Session["PrecioCarritoTemporal"] = datosCarritoTemporal.PrecioCarrito; 
+
+                return View("Principal", datos);
+
+            }
+            catch (Exception ex)
+            {
+                LogsModel.RegistrarBitacora(ControllerContext, ex.Message);
+                ViewBag.mensajeError = "Sus credenciales no fueron validadas";
+                return View("Index");
+            }
+        }
+
 
         // Redirigir a la vista RegistrarUsuario 
 
@@ -109,24 +132,6 @@ namespace ProyectowebB.Controllers
             catch (Exception ex)
             {
                 LogsModel.RegistrarBitacora(ControllerContext, ex.Message);
-                return View("Index");
-            }
-        }
-
-        [HttpGet]
-        [SessionFilter]
-        public ActionResult PantallaPrincipal()
-        {
-            try
-            {
-                var datos = ProductoModel.ConsultarProductos();
-                return View("Principal", datos);
-
-            }
-            catch (Exception ex)
-            {
-                LogsModel.RegistrarBitacora(ControllerContext, ex.Message);
-                ViewBag.mensajeError = "Sus credenciales no fueron validadas";
                 return View("Index");
             }
         }
