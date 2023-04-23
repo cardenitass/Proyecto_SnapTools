@@ -1,23 +1,23 @@
-﻿@model IEnumerable<ProyectowebB.Entities.CarritoDetalleEnt>
+﻿@model IEnumerable<ProyectowebB.Entities.FacturaEnt>
 @{
-    ViewBag.Title = "DesgloceCarrito";
+    ViewBag.Title = "MostrarFactura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-1">
-        </div>
+        <div class="col-md-1"></div>
         <div class="custom-card col-md-13">
             <div class="card-body">
-                <h4 class="card-title">Desgloce del carrito</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title m-0">Mis Facturas</h4>
+                </div>
                 <br />
                 <table id="miTabla" class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unidad</th>
+                            <th>Numero Factura</th>
+                            <th>Fecha de Compra</th>
                             <th>SubTotal</th>
                             <th>Impuesto (IVA)</th>
                             <th>Total</th>
@@ -27,9 +27,8 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.NombreProducto</td>
-                                <td>@item.CantidadCarrito</td>
-                                <td>₡@string.Format("{0:n2}", @item.PrecioProducto)</td>
+                                <td>@item.IdFactura</td>
+                                <td>@item.FechaCompra.ToString("dd/MM/yyyy")</td>
                                 <td>₡@string.Format("{0:n2}", @item.SubTotal)</td>
                                 <td>₡@string.Format("{0:n2}", @item.Impuesto)</td>
                                 <td>₡@string.Format("{0:n2}", @item.Total)</td>
@@ -41,3 +40,5 @@
         </div>
     </div>
 </div>
+
+

@@ -37,6 +37,7 @@ namespace ProyectoFinal_API.Models
             {
 
                 var datos = (from x in conexion.Product
+                             where x.stock > 0
                              select x).ToList();
 
                 List<ProductoEnt> listaEntidadResultado = new List<ProductoEnt>();
@@ -159,7 +160,22 @@ namespace ProyectoFinal_API.Models
             }
         }
 
-       public CarritoEnt MostrarCarritoTemporal(int IdUsuario)
+        public void EliminarProductoCarrito(ProductoEnt entidad)
+        {
+            using (var conexion = new ProyectoFinal_KN_BDEntities())
+            {
+                var datos = (from x in conexion.Cart
+                             where x.id_user == entidad.IdUsuario
+                             && x.id_product == entidad.IdProducto
+                             select x).FirstOrDefault();
+
+                conexion.Cart.Remove(datos);
+                conexion.SaveChanges();
+            }
+
+        }
+
+        public CarritoEnt MostrarCarritoTemporal(int IdUsuario)
         {
             using (var conexion = new ProyectoFinal_KN_BDEntities())
             {

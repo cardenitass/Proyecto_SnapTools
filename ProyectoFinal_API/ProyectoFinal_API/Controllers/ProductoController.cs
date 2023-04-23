@@ -61,6 +61,13 @@ namespace ProyectoFinal_API.Controllers
             ProductoModel.ActualizarCarrito(entidad);
         }
 
+        [HttpDelete]
+        [Route("api/EliminarProductoCarrito")]
+        public void EliminarProductoCarrito(ProductoEnt entidad)
+        {
+            ProductoModel.EliminarProductoCarrito(entidad);
+        }
+
         [HttpGet]
         [Route("api/MostrarCarritoTemporal")]
         public CarritoEnt MostrarCarritoTemporal(int IdUsuario)

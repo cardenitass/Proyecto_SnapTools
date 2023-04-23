@@ -161,11 +161,12 @@
     <Compile Include="App_Start\SessionFilter.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PagoController.cs" />
+    <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Entities\CarritoDetalleEnt.cs" />
     <Compile Include="Entities\CarritoEnt.cs" />
+    <Compile Include="Entities\FacturaEnt.cs" />
     <Compile Include="Entities\LogsEnt.cs" />
     <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ProvinciaEnt.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FacturaModel.cs" />
     <Compile Include="Models\LogsModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProvinciaModel.cs" />
@@ -200,10 +202,15 @@
     <Content Include="Funciones\StartRecovery.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\Desatornillador.jpg" />
     <Content Include="img\Imagen_SNAP_Mesa_de_trabajo_1.png" />
     <Content Include="img\Imagen_SNAP_Mesa_de_trabajo_1_copia_2.png" />
     <Content Include="img\keys-workshop-mechanic-tools-162553.jpeg" />
+    <Content Include="img\Kit.jpg" />
+    <Content Include="img\Lijadora.jpg" />
     <Content Include="img\Martillo.jpg" />
+    <Content Include="img\Pinzas.jpg" />
+    <Content Include="img\Taladro.jpg" />
     <Content Include="img\Tijera.jpg" />
     <Content Include="img\xd_Mesa_de_trabajo_1_copia.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -244,7 +251,8 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\ActualizarProducto.cshtml" />
     <Content Include="Views\Producto\AgregarProducto.cshtml" />
-    <Content Include="Views\Pago\DesgloceCarrito.cshtml" />
+    <Content Include="Views\Producto\DesgloceCarrito.cshtml" />
+    <Content Include="Views\Factura\MostrarFactura.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

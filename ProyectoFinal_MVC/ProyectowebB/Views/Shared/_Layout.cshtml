@@ -46,7 +46,7 @@
 
             <!-- Navbar-->
             <div class="cart-icon">
-                <a href="@Url.Action("DesgloceCarrito", "Pago")" target="_self"><i class="fa-solid fa-cart-shopping" style="color: #dbcb1f;"></i></a>
+                <a href="@Url.Action("DesgloceCarrito", "Producto")" target="_self"><i class="fa-solid fa-cart-shopping" style="color: #dbcb1f;"></i></a>
                 <span class="cart-quantity">@Session["CantidadCarritoTemporal"].ToString()</span>
             </div>
 
@@ -91,13 +91,13 @@
 
                                 <!--CART-->
                                 <li>
-                                    <a class="nav-link" href="#">Carrito</a>
+                                    <a class="nav-link" href="#">Compras</a>
                                     <ul>
                                         <li>
-                                            <a class="nav-link" href="@Url.Action("DesgloceCarrito", "Pago")">Procesar Pago</a>
+                                            <a class="nav-link" href="@Url.Action("DesgloceCarrito", "Producto")">Ver Carrito</a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" href="@Url.Action("", "")">Ver facturas</a>
+                                            <a class="nav-link" href="@Url.Action("MostrarFactura", "Factura")">Facturas</a>
                                         </li>
                                     </ul>
                                 </li>

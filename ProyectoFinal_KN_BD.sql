@@ -127,7 +127,7 @@ CREATE PROCEDURE ShowTemporalCart
     @IdUsuario int
 AS
 BEGIN 
-  DECLARE @IVA DECIMAL = 0.13
+  DECLARE @IVA DECIMAL(10,2) = 0.13
 
     SELECT ISNULL(SUM(C.quantity),0)                                               CartQuantity,
 		   ISNULL(SUM(C.quantity * P.price) + (SUM(C.quantity * P.price)* @IVA),0) CartPrice
@@ -153,6 +153,95 @@ BEGIN
 		   C.quantity * P.price + ((C.quantity * P.price) * @IVA)   Total
 	FROM Cart C INNER JOIN Product P 
 	     ON C.id_product = P.id_product
+	WHERE id_user = @IdUsuario
+END
+GO
+
+-----------------------------------
+
+CREATE PROCEDURE ConfirmPayment
+    @IdUsuario int
+AS
+BEGIN
+
+ -- SI HAY UN PRODUCTO QUE SUPERA EL STOCK NO EJECUTAR EL PROCEDURE
+
+ IF NOT EXISTS(SELECT C.id_product
+			   FROM Cart C
+			   INNER JOIN Product P ON C.id_product = P.id_product
+			   WHERE id_user = @IdUsuario 
+			   AND C.quantity > P.stock)
+
+   BEGIN 
+		DECLARE @IVA DECIMAL(10,2) = 0.13
+
+		-- ENCABEZADO DE LA FACTURA
+		INSERT INTO [dbo].[Invoice]
+			   ([date_time]
+			   ,[sub_total]
+			   ,[tax]
+			   ,[total]
+			   ,[id_user])
+		 SELECT GETDATE(), 
+		  SUM(C.quantity * P.price),
+		  SUM((C.quantity * P.price) * @IVA),
+		  SUM(C.quantity * P.price + ((C.quantity * P.price) * @IVA)),
+		  C.id_user
+		  FROM Cart C INNER JOIN Product P ON C.id_product = P.id_product
+		  WHERE id_user = @IdUsuario
+		  GROUP BY C.id_user
+
+		  -- DETALLE DE LA FACTURA
+
+	INSERT INTO [dbo].[Invoice_details]
+			   ([id_invoice]
+			   ,[id_product]
+			   ,[quantity]
+			   ,[price])
+				SELECT @@Identity, 
+				  C.id_product,
+				  C.quantity,
+				  C.quantity * P.price
+				  FROM Cart C INNER JOIN Product P ON C.id_product = P.id_product
+				  WHERE id_user = @IdUsuario
+
+			-- ELIMINAR PRODUCTOS COMPRADOS DEL STOCK
+
+			UPDATE P 
+			SET P.stock = P.stock - C.quantity
+			FROM Product P
+			INNER JOIN Cart C ON P.id_product = C.id_product
+			WHERE id_user = @IdUsuario
+
+			-- LIMPIAR EL CARRITO
+			DELETE FROM Cart 
+			WHERE id_user = @IdUsuario
+
+    END
+	ELSE
+	BEGIN 
+	    -- LIMPIAR DEL CARRITO LOS PRODUCTOS QUE SUPERAN EL STOCK 
+		DELETE C  
+		FROM Cart C INNER JOIN Product P 
+		ON C.id_product = P.id_product
+		WHERE id_user = @IdUsuario 
+		      AND C.quantity > P.stock
+	END
+END
+
+
+-----------------------------------
+
+CREATE PROCEDURE ViewInvoice
+    @IdUsuario int
+AS
+BEGIN 
+    SELECT I.id_invoice,
+	       I.date_time,
+	       I.sub_total,
+		   I.tax, 
+		   I.total
+	FROM Invoice I 
 	WHERE id_user = @IdUsuario
 END
 GO
@@ -305,6 +394,12 @@ DELETE FROM [dbo].[Role]
 DELETE FROM [dbo].[Product] 
 
 DELETE FROM [dbo].[Cart] 
+
+DELETE FROM [dbo].[Invoice]
+
+DELETE FROM [dbo].[Invoice_details] 
+
+
 
 
 --Eliminar los productos del carrito despues de 5 dias-----------------------------------------------------------------------------

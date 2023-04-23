@@ -55,5 +55,23 @@ namespace ProyectoFinal_API.ModeloBD
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowTotalCart_Result>("ShowTotalCart", idUsuarioParameter);
         }
+    
+        public virtual int ConfirmPayment(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ConfirmPayment", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<ViewInvoice_Result> ViewInvoice(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewInvoice_Result>("ViewInvoice", idUsuarioParameter);
+        }
     }
 }

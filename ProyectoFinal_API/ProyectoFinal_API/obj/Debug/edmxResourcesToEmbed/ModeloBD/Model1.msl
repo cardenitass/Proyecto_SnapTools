@@ -128,5 +128,17 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConfirmPayment" FunctionName="ProyectoFinal_KN_BDModel.Store.ConfirmPayment" />
+    <FunctionImportMapping FunctionImportName="ViewInvoice" FunctionName="ProyectoFinal_KN_BDModel.Store.ViewInvoice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ProyectoFinal_KN_BDModel.ViewInvoice_Result">
+          <ScalarProperty Name="id_invoice" ColumnName="id_invoice" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="sub_total" ColumnName="sub_total" />
+          <ScalarProperty Name="tax" ColumnName="tax" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
