@@ -253,7 +253,7 @@ GO
 INSERT INTO [dbo].[Province]
            ([province_name])
      VALUES
-           ('San JosÈ')
+           ('San Jos√©')
 
 INSERT INTO [dbo].[Province]
            ([province_name])
@@ -283,7 +283,7 @@ INSERT INTO [dbo].[Province]
 INSERT INTO [dbo].[Province]
            ([province_name])
      VALUES
-           ('LimÛn')
+           ('Lim√≥n')
 
 INSERT INTO [dbo].[Province]
            ([province_name])
@@ -333,7 +333,7 @@ INSERT INTO [dbo].[User_tb]
 INSERT INTO [dbo].[Store]
            ([name])
      VALUES
-           ('Snap Tools San JosÈ')
+           ('Snap Tools San Jos√©')
 
 INSERT INTO [dbo].[Store]
            ([name])
@@ -352,7 +352,7 @@ INSERT INTO [dbo].[Product]
            ,[picture_url]
            ,[id_store])
      VALUES
-           ('Truper MA-16F','Martillo pulido, uÒa curva 16 oz y mango de fibra de vidrio','5',
+           ('Truper MA-16F','Martillo pulido, u√±a curva 16 oz y mango de fibra de vidrio','5',
 		    '7000.00','\img\Martillo.jpg','1')
 
 INSERT INTO [dbo].[Product]
@@ -363,8 +363,34 @@ INSERT INTO [dbo].[Product]
            ,[picture_url]
            ,[id_store])
      VALUES
-           ('KOHAM','Tijera de podar elÈctrica profesionale inal·mbrica con 2 piezas de respaldo recargables','10',
+           ('KOHAM','Tijera de podar el√©ctrica profesionale inal√°mbrica con 2 piezas de respaldo recargables','10',
 		    '40000.00','\img\Tijera.jpg','2')
+		    
+		    
+------------------------SHOW INVOICE DETAILS---------------------------------------
+
+ALTER PROCEDURE ShowInvoiceDetails 
+@idInvoice INT 
+AS
+BEGIN
+	 SELECT	 ID.[id_invoice]
+		    ,ID.[quantity]
+			,ID.[price]	
+			,P.name AS product_name
+			,P.description
+			,U.name AS user_name
+			,I.date_time
+			,I.sub_total
+			,I.tax
+			,I.total
+	 FROM	Invoice_details ID
+	 INNER JOIN Invoice I ON I.id_invoice = ID.id_invoice
+	 INNER JOIN Product P ON P.id_product = ID.id_product
+	 INNER JOIN User_tb U ON U.id_user = I.id_user
+	 WHERE ID.id_invoice = @idInvoice
+
+END
+GO
 
 --SELECTS----------------------------------------------------------------------------------------------------------------------------
 
