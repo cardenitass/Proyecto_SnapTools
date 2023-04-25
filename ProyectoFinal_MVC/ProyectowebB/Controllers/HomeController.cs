@@ -143,7 +143,11 @@ namespace ProyectowebB.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
+        [HttpGet]
+        public ActionResult Contactenos()
+        {
+            return View();
+        }
     }
 
 }

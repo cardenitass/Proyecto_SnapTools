@@ -255,6 +255,7 @@
     <Content Include="Views\Producto\DesgloceCarrito.cshtml" />
     <Content Include="Views\Factura\MostrarFactura.cshtml" />
     <Content Include="Views\Factura\MostrarDetalleFactura.cshtml" />
+    <Content Include="Views\Home\Contactenos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

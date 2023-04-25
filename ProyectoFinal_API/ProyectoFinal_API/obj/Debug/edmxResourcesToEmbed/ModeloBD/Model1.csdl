@@ -96,16 +96,6 @@
     <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.fk_product_store" FromRole="Store" ToRole="Product" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="User_tb">
     <Key>
       <PropertyRef Name="id_user" />
@@ -243,7 +233,6 @@
     <EntitySet Name="Province" EntityType="Self.Province" />
     <EntitySet Name="Role" EntityType="Self.Role" />
     <EntitySet Name="Store" EntityType="Self.Store" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="User_tb" EntityType="Self.User_tb" />
     <AssociationSet Name="fk_cart_product" Association="Self.fk_cart_product">
       <End Role="Product" EntitySet="Product" />
