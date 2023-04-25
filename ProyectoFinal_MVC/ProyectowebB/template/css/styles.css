@@ -12637,7 +12637,7 @@ footer {
 
 :root {
     --surface-color: #fff;
-    --curve: 40;
+    --curve: 40px;
 }
 
 * {
@@ -12662,7 +12662,7 @@ body {
     position: relative;
     display: block;
     height: 100%;
-    border-radius: calc(var(--curve) * 1px);
+    border-radius: var(--curve);
     overflow: hidden;
     text-decoration: none;
 }
@@ -12678,7 +12678,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1;
-    border-radius: calc(var(--curve) * 1px);
+    border-radius: var(--curve);
     background-color: var(--surface-color);
     transform: translateY(100%);
     transition: .2s ease-in-out;
@@ -12694,7 +12694,7 @@ body {
     align-items: center;
     gap: 2em;
     padding: 2em;
-    border-radius: calc(var(--curve) * 1px) 0 0 0;
+    border-radius: var(--curve) 0 0 0;
     background-color: var(--surface-color);
     transform: translateY(-100%);
     transition: .2s ease-in-out;
@@ -12753,4 +12753,4 @@ body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-}    
+}
