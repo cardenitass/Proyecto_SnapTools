@@ -246,6 +246,22 @@ BEGIN
 END
 GO
 
+-----------------------------------
+
+ALTER PROCEDURE ShowInvoiceDetails 
+@IdInvoice INT 
+AS
+BEGIN
+       
+	SELECT id_invoice
+		  ,id_product
+		  ,quantity
+		  ,price
+	  FROM Invoice_details
+	  WHERE id_invoice =  @IdInvoice
+END
+GO
+
 
 --INSERTS PROVINCIAS----------------------------------------------------------------------------------------------------------------------------
 
@@ -365,32 +381,8 @@ INSERT INTO [dbo].[Product]
      VALUES
            ('KOHAM','Tijera de podar eléctrica profesionale inalámbrica con 2 piezas de respaldo recargables','10',
 		    '40000.00','\img\Tijera.jpg','2')
-		    
-		    
-------------------------SHOW INVOICE DETAILS---------------------------------------
+		   
 
-ALTER PROCEDURE ShowInvoiceDetails 
-@idInvoice INT 
-AS
-BEGIN
-	 SELECT	 ID.[id_invoice]
-		    ,ID.[quantity]
-			,ID.[price]	
-			,P.name AS product_name
-			,P.description
-			,U.name AS user_name
-			,I.date_time
-			,I.sub_total
-			,I.tax
-			,I.total
-	 FROM	Invoice_details ID
-	 INNER JOIN Invoice I ON I.id_invoice = ID.id_invoice
-	 INNER JOIN Product P ON P.id_product = ID.id_product
-	 INNER JOIN User_tb U ON U.id_user = I.id_user
-	 WHERE ID.id_invoice = @idInvoice
-
-END
-GO
 
 --SELECTS----------------------------------------------------------------------------------------------------------------------------
 

@@ -1,0 +1,94 @@
+﻿@model ProyectowebB.Entities.UsuarioEnt
+
+@{
+    ViewBag.Title = "RegistrarUsuario";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Registro</h3>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("RegistrarUsuario", "Home", FormMethod.Post, new { onsubmit = "showSpinner()", @class = "pt-3" }))
+                        {
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.TextBoxFor(Model => Model.CorreoElectronico, new
+                                        {
+                                            @class = "form-control",
+                                            @placeholder = "Correo Electrónico",
+                                            @onblur = "BuscarCorreo();",
+                                            @required = true
+                                        })
+                                        <label for="inputEmail">Correo electrónico </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.PasswordFor(Model => Model.Contrasenna, new
+                                        {
+                                            @class = "form-control",
+                                            @placeholder = "Contraseña",
+                                            @type = "Password",
+                                            @required = true
+                                        })
+                                        <label for="inputPassword">Contraseña</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.TextBoxFor(Model => Model.Identificacion, new
+                                        {
+                                            @class = "form-control",
+                                            @placeholder = "Identificación",
+                                            @onkeyUp = "ConsultarNombreApi();",
+                                            @required = true
+                                        })
+                                        <label for="inputIdentificación">Identificación</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.TextBoxFor(Model => Model.Nombre, new
+                                        {
+                                            @class = "form-control",
+                                            @readonly = true
+                                        })
+                                        <label for="inputNombre">Nombre </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        @Html.DropDownListFor(Model => Model.IdProvincia, ViewBag.ListaProvincias as List<SelectListItem>, new
+                                        {
+                                            @class = "form-control",
+                                        })
+                                        <label for="inputProvincia">Provincia</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
+                                        <input type="submit" id="btnRegistrar" disabled class="btn btn-primary"
+                                               value="Registrarse">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="~/Funciones/ActualizarUsuario.js"></script>
+<script src="~/Funciones/RegistrarUsuario.js"></script>
+
+

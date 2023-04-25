@@ -1,0 +1,41 @@
+﻿@model ProyectowebB.Models.RecoveryPassword
+@{
+    ViewBag.Title = "Recovery";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Recuperación de contraseña </h3></div>
+                    <div class="card-body">
+
+
+
+                        <form action=" @Url.Content("~/Access/Recovery")" method="post">
+                            @Html.HiddenFor(d => d.token)
+
+                            <label>Escribe tu nueva contraseña</label>
+                            @Html.PasswordFor(d => d.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(d => d.Password, null, new { style = "color: red;" })
+                            <br />
+                            <label>Vuelve a escribir tu contraseña</label>
+                            @Html.PasswordFor(d => d.Password2, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(d => d.Password2, null, new { style = "color: red;" })
+                            <br />
+
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+
+                                <input type="submit" class="btn btn-primary" value="Procesar" />
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -20,6 +20,7 @@ namespace ProyectowebB.Controllers
 
         // Ver lista de Productos
         [HttpGet]
+        [RoleFilter]
         public ActionResult Index()
         {
             try
@@ -36,6 +37,7 @@ namespace ProyectowebB.Controllers
 
         // Redirige a la pantalla de agregar y carga lista de tiendas
         [HttpGet]
+        [RoleFilter]
         public ActionResult AgregarProducto()
         {
             try
@@ -74,6 +76,7 @@ namespace ProyectowebB.Controllers
 
         // Cargar vista de Actualizar Producto
         [HttpGet]
+        [RoleFilter]
         public ActionResult ActualizarProducto(int q)
         {
             try

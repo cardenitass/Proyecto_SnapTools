@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-1"></div>
@@ -21,6 +22,8 @@
                             <th>SubTotal</th>
                             <th>Impuesto (IVA)</th>
                             <th>Total</th>
+                            <th>Acciones</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +35,9 @@
                                 <td>₡@string.Format("{0:n2}", @item.SubTotal)</td>
                                 <td>₡@string.Format("{0:n2}", @item.Impuesto)</td>
                                 <td>₡@string.Format("{0:n2}", @item.Total)</td>
+                                <td style="display: flex">
+                                    <a class="btn btn-primary mr-2 rounded" href="@Url.Action("MostrarDetalleFactura","Factura", new { onsubmit = "showSpinner()", IdFactura = item.IdFactura})"><i class="fa-solid fa-eye"></i></a>
+                                </td>
                             </tr>
                         }
                     </tbody>

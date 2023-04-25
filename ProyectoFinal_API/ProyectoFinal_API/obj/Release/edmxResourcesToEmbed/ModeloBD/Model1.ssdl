@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProyectoFinal_KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Binnacle">
+    <Key>
+      <PropertyRef Name="id_error" />
+    </Key>
+    <Property Name="id_error" Type="bigint" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+    <Property Name="origin" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="id_cart" />
+    </Key>
+    <Property Name="id_cart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_product" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Errors">
+    <Key>
+      <PropertyRef Name="id_error" />
+    </Key>
+    <Property Name="id_error" Type="bigint" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+    <Property Name="origin" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="id_invoice" />
+    </Key>
+    <Property Name="id_invoice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date_time" Type="datetime" Nullable="false" />
+    <Property Name="sub_total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="tax" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice_details">
+    <Key>
+      <PropertyRef Name="id_invoice_detail" />
+    </Key>
+    <Property Name="id_invoice_detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_invoice" Type="int" Nullable="false" />
+    <Property Name="id_product" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id_product" />
+    </Key>
+    <Property Name="id_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="stock" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="picture_url" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="id_store" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="id_province" />
+    </Key>
+    <Property Name="id_province" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="province_name" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id_role" />
+    </Key>
+    <Property Name="id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role_name" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="id_store" />
+    </Key>
+    <Property Name="id_store" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_tb">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="id_role" Type="int" Nullable="false" />
+    <Property Name="token_recovery" Type="varchar" MaxLength="200" />
+    <Property Name="identification" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="id_province" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_cart_product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id_product" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cart_user">
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_tb">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_errors_user">
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
+    <End Role="Errors" Type="Self.Errors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_tb">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Errors">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_invoice_details_invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="Invoice_details" Type="Self.Invoice_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="id_invoice" />
+      </Principal>
+      <Dependent Role="Invoice_details">
+        <PropertyRef Name="id_invoice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_invoice_details_product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Invoice_details" Type="Self.Invoice_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id_product" />
+      </Principal>
+      <Dependent Role="Invoice_details">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_invoice_user">
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_tb">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_product_store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="id_store" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="id_store" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_province">
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="id_province" />
+      </Principal>
+      <Dependent Role="User_tb">
+        <PropertyRef Name="id_province" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User_tb" Type="Self.User_tb" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="User_tb">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProyectoFinal_KN_BDModelStoreContainer">
+    <EntitySet Name="Binnacle" EntityType="Self.Binnacle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Errors" EntityType="Self.Errors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice_details" EntityType="Self.Invoice_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_tb" EntityType="Self.User_tb" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_cart_product" Association="Self.fk_cart_product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cart_user" Association="Self.fk_cart_user">
+      <End Role="User_tb" EntitySet="User_tb" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="fk_errors_user" Association="Self.fk_errors_user">
+      <End Role="User_tb" EntitySet="User_tb" />
+      <End Role="Errors" EntitySet="Errors" />
+    </AssociationSet>
+    <AssociationSet Name="fk_invoice_details_invoice" Association="Self.fk_invoice_details_invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="Invoice_details" EntitySet="Invoice_details" />
+    </AssociationSet>
+    <AssociationSet Name="fk_invoice_details_product" Association="Self.fk_invoice_details_product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Invoice_details" EntitySet="Invoice_details" />
+    </AssociationSet>
+    <AssociationSet Name="fk_invoice_user" Association="Self.fk_invoice_user">
+      <End Role="User_tb" EntitySet="User_tb" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="fk_product_store" Association="Self.fk_product_store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_province" Association="Self.fk_user_province">
+      <End Role="Province" EntitySet="Province" />
+      <End Role="User_tb" EntitySet="User_tb" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User_tb" EntitySet="User_tb" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

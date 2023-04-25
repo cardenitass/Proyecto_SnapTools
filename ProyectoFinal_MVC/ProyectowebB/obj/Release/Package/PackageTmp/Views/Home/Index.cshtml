@@ -1,0 +1,74 @@
+﻿@model ProyectowebB.Entities.UsuarioEnt
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+
+@if (ViewBag.Message == "Contraseña recuperada exitosamente")
+{
+
+    <div class="col-md-3">
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    </div>
+
+}
+else if (@ViewBag.Error == "Tu token ha expirado")
+{
+
+    <div class="col-md-3">
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    </div>
+}
+else if (ViewBag.mensajeError == "Sus credenciales no fueron validadas" || ViewBag.mensajeError == "Sus credenciales son incorrectas"
+        || ViewBag.mensajeError == "El usuario no se pudo registrar")
+{
+    <div class="col-md-3">
+        <div class="alert alert-danger">
+            @ViewBag.mensajeError
+        </div>
+    </div>
+}
+
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">Ferretería Snap Tools</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Principal", "Home", FormMethod.Post, new { onsubmit = "showSpinner()", @class = "mt-4" }))
+                    {
+                        <div class="form-floating mb-3">
+                            @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", @placeholder = "Correo Electrónico" })
+                            <label for="inputEmail">Correo electrónico</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            @Html.PasswordFor(m => m.Contrasenna, new { @class = "form-control", @placeholder = "Contraseña" })
+                            <label for="inputPassword">Contraseña</label>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="small">
+                        <a href="@Url.Action("StartRecovery", "Access")">¿Olvidó la contraseña?</a>
+                    </div>
+                    <div class="small">
+                        <a href="@Url.Action("RegistrarUsuario", "Home")">Regístrese aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

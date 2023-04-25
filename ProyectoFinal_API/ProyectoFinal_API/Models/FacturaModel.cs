@@ -46,5 +46,32 @@ namespace ProyectoFinal_API.Models
                 return factura;
             }
         }
+
+        // Mostrar varios productos de la factura
+        public List<DetalleFacturaEnt> MostrarDetalleFactura(int IdFactura)
+        {
+            using (var conexion = new ProyectoFinal_KN_BDEntities())
+            {
+                var datos = conexion.ShowInvoiceDetails(IdFactura).ToList();
+
+                List<DetalleFacturaEnt> detalleFactura = new List<DetalleFacturaEnt>();
+
+                if (datos.Count > 0)
+                {
+                    foreach (var item in datos)
+                    {
+                        detalleFactura.Add(new DetalleFacturaEnt
+                        {
+                            IdFactura = item.id_invoice,
+                            IdProducto = item.id_product,
+                            Cantidad = item.quantity,
+                            Precio = item.price
+                        });
+                    }
+
+                }
+                return detalleFactura;
+            }
+        }
     }
 }

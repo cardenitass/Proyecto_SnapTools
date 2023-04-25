@@ -96,6 +96,16 @@
     <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.fk_product_store" FromRole="Store" ToRole="Product" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="User_tb">
     <Key>
       <PropertyRef Name="id_user" />
@@ -233,6 +243,7 @@
     <EntitySet Name="Province" EntityType="Self.Province" />
     <EntitySet Name="Role" EntityType="Self.Role" />
     <EntitySet Name="Store" EntityType="Self.Store" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="User_tb" EntityType="Self.User_tb" />
     <AssociationSet Name="fk_cart_product" Association="Self.fk_cart_product">
       <End Role="Product" EntitySet="Product" />
@@ -270,30 +281,39 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="User_tb" EntitySet="User_tb" />
     </AssociationSet>
+    <FunctionImport Name="ConfirmPayment">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ShowInvoiceDetails" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowInvoiceDetails_Result)">
+      <Parameter Name="IdInvoice" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="ShowTemporalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTemporalCart_Result)">
       <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="ShowTotalCart" ReturnType="Collection(ProyectoFinal_KN_BDModel.ShowTotalCart_Result)">
       <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="ConfirmPayment">
-      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="ViewInvoice" ReturnType="Collection(ProyectoFinal_KN_BDModel.ViewInvoice_Result)">
       <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="ShowInvoiceDetails_Result">
+    <Property Type="Int32" Name="id_invoice" Nullable="false" />
+    <Property Type="Int32" Name="id_product" Nullable="false" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Decimal" Name="price" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
   <ComplexType Name="ShowTemporalCart_Result">
-    <Property Type="Int32" Name="CartQuantity" Nullable="true" />
-    <Property Type="Decimal" Name="CartPrice" Nullable="true" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="CartQuantity" Nullable="false" />
+    <Property Type="Decimal" Name="CartPrice" Nullable="false" Precision="38" Scale="0" />
   </ComplexType>
   <ComplexType Name="ShowTotalCart_Result">
     <Property Type="String" Name="ProductName" Nullable="true" MaxLength="73" />
     <Property Type="Int32" Name="CartQuantity" Nullable="false" />
     <Property Type="Decimal" Name="ProductPrice" Nullable="false" Precision="18" Scale="0" />
     <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="29" Scale="0" />
-    <Property Type="Decimal" Name="Tax" Nullable="true" Precision="38" Scale="0" />
-    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="Tax" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="2" />
   </ComplexType>
   <ComplexType Name="ViewInvoice_Result">
     <Property Type="Int32" Name="id_invoice" Nullable="false" />

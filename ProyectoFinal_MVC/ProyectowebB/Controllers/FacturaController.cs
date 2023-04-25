@@ -42,5 +42,14 @@ namespace ProyectowebB.Controllers
             return View(datos);
         }
 
+
+        [HttpGet]
+        public ActionResult MostrarDetalleFactura(int IdFactura)
+        {
+            var datos = FacturaModel.MostrarDetalleFactura(IdFactura);
+            ViewBag.IdFactura = IdFactura; 
+            return View(datos);
+        }
+
     }
 }

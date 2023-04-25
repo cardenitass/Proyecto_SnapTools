@@ -44,5 +44,24 @@ namespace ProyectowebB.Models
                 return new List<FacturaEnt>();
             }
         }
+
+        public List<DetalleFacturaEnt> MostrarDetalleFactura(int IdFactura)
+        {
+            using (var client = new HttpClient())
+            {
+
+                string url = "https://localhost:44345/api/MostrarDetalleFactura?IdFactura=" + IdFactura;
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Current.Session["TokenUsuario"].ToString());
+                HttpResponseMessage res = client.GetAsync(url).GetAwaiter().GetResult();
+
+                if (res.IsSuccessStatusCode)
+                    return res.Content.ReadFromJsonAsync<List<DetalleFacturaEnt>>().Result;
+
+
+                return new List<DetalleFacturaEnt>();
+            }
+
+        }
     }
 }

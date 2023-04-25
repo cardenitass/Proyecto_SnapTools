@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Pagina Principal</title>
+        <link href="~/template/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    </head>
+    <body>
+        <!--HTML DEL LOADER-->
+        <div class="modal fade" id="spinner-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN HTML DEL LOADER-->
+
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="@Url.Action("PantallaPrincipal","Home")">Ferretería Snap Tools</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar User-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                @if (Session["CorreoUsuario"] != null)
+                {
+                    <h7 class="text-white bg-dark">@Session["CorreoUsuario"].ToString()</h7>
+                }
+            </form>
+
+            <!-- Navbar-->
+            <form class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <a class="nav-link" id="navbarDropdown" href="@Url.Action("CerrarSesion","Home")" role="button"><i class="fa fa-sign-out"></i></a>
+            </form>
+        </nav>
+
+
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Opciones</div>
+
+                            <ul class="">
+                                <li><a class="nav-link" href="@Url.Action("PantallaPrincipal","Home")">Inicio</a></li>
+
+                                @if (Session["Rol"] != null && Session["Rol"].ToString() == "1")
+                                {
+                                <li><a class="nav-link" href="@Url.Action("Index", "Usuario")">Mant. Usuarios</a></li>
+                                <li><a class="nav-link" href="@Url.Action("Index", "Producto")">Mant. Productos</a></li>
+                                }
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+
+            <div id="layoutSidenav_content">
+
+
+                @RenderBody()
+
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Ferreteria Website 2022</div>
+                            <div>
+                                <a href="#">Politica de Privacidad</a>
+                                &middot;
+                                <a href="#">Terms &amp; Condiciones </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+
+
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="~/template/js/scripts.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+                <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"></script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        // Configuramos las opciones de DataTables según nuestras necesidades
+                        var opciones = {
+                            language: {
+                                url: "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+                            },
+                            pagingType: "full_numbers",
+                            pageLength: 10,
+                            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Mostrar todo"]],
+                            ordering: true,
+                            order: [[0, "asc"]],
+                            searching: true,
+                            info: true,
+                            responsive: true
+                            // Agrega cualquier otra opción que necesites aquí
+                        };
+
+                        // Inicializamos DataTables con las opciones configuradas
+                        $('#miTabla').DataTable(opciones);
+                    });
+                </script>
+</body>
+</html>
+
+<script>
+    function showSpinner() {
+        $('#spinner-modal').modal('show');
+    }
+
+    function hideSpinner() {
+        $('#spinner-modal').modal('hide');
+    }
+</script>
+
+<script>
+    $(document).ajaxStop(function () {
+        hideSpinner();
+    });
+</script>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3b70e99afcfb4057843e04f31ccc944c" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Binnacle" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Cart" Width="1.5" PointX="7.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Errors" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Invoice" Width="1.5" PointX="1.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Invoice_details" Width="1.5" PointX="3.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Product" Width="1.5" PointX="8.125" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Province" Width="1.5" PointX="1.375" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Role" Width="1.5" PointX="1.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.Store" Width="1.5" PointX="11.875" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal_KN_BDModel.User_tb" Width="1.5" PointX="4.875" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_cart_product" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_cart_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_errors_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_invoice_details_invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_invoice_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_invoice_details_product" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_product_store" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_user_province" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal_KN_BDModel.fk_user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

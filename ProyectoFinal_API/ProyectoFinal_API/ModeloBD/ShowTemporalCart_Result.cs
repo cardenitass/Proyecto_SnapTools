@@ -13,7 +13,7 @@ namespace ProyectoFinal_API.ModeloBD
     
     public partial class ShowTemporalCart_Result
     {
-        public Nullable<int> CartQuantity { get; set; }
-        public Nullable<decimal> CartPrice { get; set; }
+        public int CartQuantity { get; set; }
+        public decimal CartPrice { get; set; }
     }
 }

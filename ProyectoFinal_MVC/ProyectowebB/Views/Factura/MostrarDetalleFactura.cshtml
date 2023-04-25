@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProyectowebB.Entities.DetalleFacturaEnt>
+@{
+    ViewBag.Title = "MostrarDetalleFactura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="custom-card col-md-13">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title m-0">Detalle de la factura @ViewBag.IdFactura</h4>
+                </div>
+                <br />
+                <table id="miTabla" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IdProducto</td>
+                                <td>@item.Cantidad</td>
+                                <td>₡@string.Format("{0:n2}", (item.Precio / item.Cantidad))</td>
+                                <td>₡@string.Format("{0:n2}", item.Precio)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+    &nbsp;&nbsp;<a href="@Url.Action("MostrarFactura", "Factura")" class="btn btn-outline-dark"><i class="fas fa-arrow-left"></i></a>
+</div>
+
+
+

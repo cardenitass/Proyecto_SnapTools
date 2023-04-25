@@ -36,7 +36,26 @@ namespace ProyectoFinal_API.ModeloBD
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Store> Store { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User_tb> User_tb { get; set; }
+    
+        public virtual int ConfirmPayment(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ConfirmPayment", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<ShowInvoiceDetails_Result> ShowInvoiceDetails(Nullable<int> idInvoice)
+        {
+            var idInvoiceParameter = idInvoice.HasValue ?
+                new ObjectParameter("IdInvoice", idInvoice) :
+                new ObjectParameter("IdInvoice", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowInvoiceDetails_Result>("ShowInvoiceDetails", idInvoiceParameter);
+        }
     
         public virtual ObjectResult<ShowTemporalCart_Result> ShowTemporalCart(Nullable<int> idUsuario)
         {
@@ -54,15 +73,6 @@ namespace ProyectoFinal_API.ModeloBD
                 new ObjectParameter("IdUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowTotalCart_Result>("ShowTotalCart", idUsuarioParameter);
-        }
-    
-        public virtual int ConfirmPayment(Nullable<int> idUsuario)
-        {
-            var idUsuarioParameter = idUsuario.HasValue ?
-                new ObjectParameter("IdUsuario", idUsuario) :
-                new ObjectParameter("IdUsuario", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ConfirmPayment", idUsuarioParameter);
         }
     
         public virtual ObjectResult<ViewInvoice_Result> ViewInvoice(Nullable<int> idUsuario)

@@ -28,5 +28,13 @@ namespace ProyectoFinal_API.Controllers
         {
             return FacturaModel.MostrarFactura(IdUsuario);
         }
+
+
+        [HttpGet]
+        [Route("api/MostrarDetalleFactura")]
+        public List<DetalleFacturaEnt> MostrarDetalleFactura(int IdFactura)
+        {
+            return FacturaModel.MostrarDetalleFactura(IdFactura);
+        }
     }
 }
