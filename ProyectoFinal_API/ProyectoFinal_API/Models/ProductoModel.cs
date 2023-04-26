@@ -160,21 +160,6 @@ namespace ProyectoFinal_API.Models
             }
         }
 
-        public void EliminarProductoCarrito(ProductoEnt entidad)
-        {
-            using (var conexion = new ProyectoFinal_KN_BDEntities())
-            {
-                var datos = (from x in conexion.Cart
-                             where x.id_user == entidad.IdUsuario
-                             && x.id_product == entidad.IdProducto
-                             select x).FirstOrDefault();
-
-                conexion.Cart.Remove(datos);
-                conexion.SaveChanges();
-            }
-
-        }
-
         public CarritoEnt MostrarCarritoTemporal(int IdUsuario)
         {
             using (var conexion = new ProyectoFinal_KN_BDEntities())
@@ -208,6 +193,7 @@ namespace ProyectoFinal_API.Models
                     {
                         carrito.Add(new CarritoDetalleEnt
                         {
+                            IdProducto = item.ProductId,
                             NombreProducto = item.ProductName,
                             CantidadCarrito = item.CartQuantity,
                             PrecioProducto = item.ProductPrice,

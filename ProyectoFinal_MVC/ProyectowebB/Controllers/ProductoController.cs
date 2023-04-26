@@ -133,24 +133,6 @@ namespace ProyectowebB.Controllers
             return Json("Ok", JsonRequestBehavior.AllowGet);
         }
 
-     
-
-        //[HttpPost]
-        //public ActionResult EliminarProductoCarrito(int IdProducto)
-        //{
-        //    try
-        //    {
-        //        ProductoModel.EliminarProductoCarrito(IdProducto);
-        //        return RedirectToAction("VerDesgloce", "Producto");
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogsModel.RegistrarErrores(Session["IdUsuario"], ControllerContext, ex.Message);
-        //        return View("Index");
-        //    }
-        //}
-
 
         [HttpGet]
         public ActionResult DesgloceCarrito()

@@ -145,7 +145,8 @@ AS
 BEGIN 
  DECLARE @IVA DECIMAL(10,2) = 0.13
 
-    SELECT CONVERT(VARCHAR,P.id_product) +'-> '+ P.name             ProductName,
+    SELECT C.id_product                                             ProductId,
+	       CONVERT(VARCHAR,P.id_product) +'-> '+ P.name             ProductName,
 	       C.quantity                                               CartQuantity,
 	       P.price                                                  ProductPrice,
 		   C.quantity * P.price                                     SubTotal,
@@ -391,6 +392,10 @@ Select * from User_tb;
 Select * from Product;
 
 Select * from Cart; 
+
+--DELETE C  
+--		FROM Cart C 
+--		WHERE id_user = 1 AND id_product = 13
 
 Select * from Invoice;
 

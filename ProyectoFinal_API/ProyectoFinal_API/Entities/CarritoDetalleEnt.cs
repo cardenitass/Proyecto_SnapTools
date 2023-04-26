@@ -13,5 +13,7 @@ namespace ProyectoFinal_API.Entities
         public decimal?  SubTotal          { get; set; }
         public decimal?  Impuesto          { get; set; }
         public decimal?  Total             { get; set; }
+
+        public int IdProducto { get; set; }
     }
 }
